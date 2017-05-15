@@ -1,3 +1,8 @@
+#include <TM1637Display.h>
+
+#define CLK 2
+#define DIO 3
+
 #define PIN_LED_INPUT 8
 #define PIN_LED_DOOR 9
 #define PIN_IS_EVLP_INPUT 10
@@ -9,6 +14,8 @@ bool isOpenDoor = false;
 
 char is_led = 0;
 
+TM1637Display display(CLK, DIO);
+
 void setup() {
   Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT);
@@ -17,6 +24,10 @@ void setup() {
   pinMode(PIN_IS_EVLP_INPUT, INPUT);
   pinMode(PIN_IS_OPEN_DOOR, INPUT);
   Serial.println("start");
+
+  display.setBrightness(0x0f);
+
+  display.showNumberDec(1234, true);
 }
 
 void addEvlpCount() {
